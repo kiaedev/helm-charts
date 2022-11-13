@@ -1,0 +1,114 @@
+# Default values for kiae.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: ghcr.io/kiaedev/kiae
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "v0.0.7"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8081
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# kiae config
+config:
+  debug: true
+  server:
+    port: 8081
+    url: http://localhost:8081
+
+  mongodb:
+    dsn: mongodb://root:admin@mongodb:27017
+    database: kiae
+
+  dex:
+    clientID: kiae-1hcHAtc2Vj
+    clientSecret: ZXhhbXBsZS1hcHAtc2VjcmV0
+    connectors:
+      - type: github
+        id: github
+        name: GitHub
+        config:
+          clientID: $GITHUB_CLIENT_ID
+          clientSecret: $GITHUB_CLIENT_SECRET
+          redirectURI: http://kiae.localhost/dex/callback
+          org: kiaedev
+
+  loki:
+    endpoint: http://loki:3100
+
+
+# istio config
+base:
+  global:
+    istioNamespace: kiae-system
+istiod:
+  global:
+    istioNamespace: kiae-system
+  meshConfig:
+    accessLogFile: /dev/stdout
+istio-ingress:
+  global:
+    istioNamespace: kiae-system
+    hub: docker.io/istio
+    tag: 1.15.2
+  meshConfig:
+    accessLogFile: /dev/stdout
+  gateways:
+    istio-ingressgateway:
+      type: NodePort
+      ports:
+          - name: http2
+            nodePort: 30080
+            port: 80
+            protocol: TCP
+            targetPort: 8080
+          - name: https
+            nodePort: 30443
+            port: 443
+            protocol: TCP
+            targetPort: 8443
+
+# dex config
+dex:
+  configSecret:
+    create: false
+    name: kiae-dex

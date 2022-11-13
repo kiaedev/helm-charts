@@ -1,0 +1,21 @@
+dependencies:
+- name: dex
+  repository: https://charts.dexidp.io
+  version: 0.12.1
+- name: kpack
+  repository: ""
+  version: 0.1.0
+- name: loki-stack
+  repository: https://grafana.github.io/helm-charts
+  version: 2.8.4
+- name: base
+  repository: https://istio-release.storage.googleapis.com/charts
+  version: 1.15.2
+- name: istiod
+  repository: https://istio-release.storage.googleapis.com/charts
+  version: 1.15.2
+- name: istio-ingress
+  repository: file://../../../../oss/istio/manifests/charts/gateways/istio-ingress/
+  version: 1.0.0
+digest: sha256:3e143e8845e097a17ba8268bceb37ffe58fdef2d4ebf2ac484a13116c837970e
+generated: "2022-11-13T15:20:44.979506+08:00"
