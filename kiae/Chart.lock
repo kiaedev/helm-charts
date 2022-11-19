@@ -8,6 +8,9 @@ dependencies:
 - name: loki-stack
   repository: https://grafana.github.io/helm-charts
   version: 2.8.4
+- name: opentelemetry-collector
+  repository: https://open-telemetry.github.io/opentelemetry-helm-charts
+  version: 0.38.0
 - name: base
   repository: https://istio-release.storage.googleapis.com/charts
   version: 1.15.2
@@ -17,5 +20,8 @@ dependencies:
 - name: istio-ingress
   repository: file://../../../../oss/istio/manifests/charts/gateways/istio-ingress/
   version: 1.0.0
-digest: sha256:3e143e8845e097a17ba8268bceb37ffe58fdef2d4ebf2ac484a13116c837970e
-generated: "2022-11-13T15:20:44.979506+08:00"
+- name: mongodb
+  repository: https://charts.bitnami.com/bitnami
+  version: 13.4.4
+digest: sha256:68cd3b4ede1fc1bb86a53ed284339c2dd71585d806e3f4fbcd6b6f3458b5cc33
+generated: "2022-11-20T00:11:25.676926+08:00"

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiae-builder
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiae-appdev
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiae-apptest
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiae-appstage
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kiae-appprod

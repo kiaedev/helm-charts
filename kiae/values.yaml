@@ -1,24 +1,20 @@
-# Default values for kiae.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 replicaCount: 1
 
 image:
   repository: ghcr.io/kiaedev/kiae
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v0.0.7"
+  tag: "v0.0.11"
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-podAnnotations: {}
-podSecurityContext: {}
+podAnnotations: { }
+podSecurityContext: { }
   # fsGroup: 2000
 
-securityContext: {}
+securityContext: { }
   # capabilities:
   #   drop:
   #   - ALL
@@ -30,7 +26,7 @@ service:
   type: ClusterIP
   port: 8081
 
-resources: {}
+resources: { }
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -42,26 +38,36 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-nodeSelector: {}
+nodeSelector: { }
 
-tolerations: []
+tolerations: [ ]
 
-affinity: {}
+affinity: { }
+
+ingressGateway:
+  enabled: true
+  credentialName: ""
+  hosts:
+    - "kiae.example.com"
 
 # kiae config
 config:
-  debug: true
+  debug: false
   server:
     port: 8081
     url: http://localhost:8081
 
   mongodb:
-    dsn: mongodb://root:admin@mongodb:27017
+    dsn: mongodb://root:password@kiae-mongodb:27017
     database: kiae
+
+  loki:
+    endpoint: http://kiae-loki:3100
 
   dex:
     clientID: kiae-1hcHAtc2Vj
     clientSecret: ZXhhbXBsZS1hcHAtc2VjcmV0
+    endpoint: http://kiae-dex:5556
     connectors:
       - type: github
         id: github
@@ -71,10 +77,6 @@ config:
           clientSecret: $GITHUB_CLIENT_SECRET
           redirectURI: http://kiae.localhost/dex/callback
           org: kiaedev
-
-  loki:
-    endpoint: http://loki:3100
-
 
 # istio config
 base:
@@ -96,19 +98,89 @@ istio-ingress:
     istio-ingressgateway:
       type: NodePort
       ports:
-          - name: http2
-            nodePort: 30080
-            port: 80
-            protocol: TCP
-            targetPort: 8080
-          - name: https
-            nodePort: 30443
-            port: 443
-            protocol: TCP
-            targetPort: 8443
+        - name: http2
+          nodePort: 30080
+          port: 80
+          protocol: TCP
+          targetPort: 8080
+        - name: https
+          nodePort: 30443
+          port: 443
+          protocol: TCP
+          targetPort: 8443
+# loki config
+loki-stack:
+  promtail:
+    config:
+      clients:
+        - url: http://kiae-loki:3100/loki/api/v1/push
+
+# opentelemetry config
+opentelemetry-collector:
+  mode: deployment
+  config:
+    exporters:
+      logging:
+        loglevel: debug
+      loki:
+        endpoint: http://kiae-loki:3100/loki/api/v1/push
+    extensions:
+      health_check: { }
+      memory_ballast: { }
+    processors:
+      attributes:
+        actions:
+          - action: insert
+            key: loki.resource.labels
+            value: okind, oname
+          - action: insert
+            key: loki.attribute.labels
+            value: namespace, reason
+
+          - action: insert
+            key: namespace
+            from_attribute: k8s.namespace.name
+          - action: insert
+            key: reason
+            from_attribute: k8s.event.reason
+      resource:
+        attributes:
+          - action: insert
+            key: okind
+            from_attribute: k8s.object.kind
+          - action: insert
+            key: oname
+            from_attribute: k8s.object.name
+
+      batch: { }
+      memory_limiter:
+        check_interval: 5s
+        limit_mib: 409
+        spike_limit_mib: 128
+    receivers:
+      k8s_events:
+    service:
+      pipelines:
+        logs:
+          exporters:
+            - loki
+          receivers:
+            - k8s_events
+          processors:
+            - resource
+            - attributes
+      telemetry:
+        metrics:
+          address: 0.0.0.0:8888
 
 # dex config
 dex:
   configSecret:
     create: false
     name: kiae-dex
+
+# mongodb config
+mongodb:
+  enabled: true
+  auth:
+    rootPassword: password

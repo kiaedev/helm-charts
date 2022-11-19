@@ -1,7 +1,8 @@
+{{- if .Values.ingressGateway.enabled -}}
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: default
+  name: kiae
   namespace: kiae-system
 spec:
   selector:
@@ -11,8 +12,12 @@ spec:
         number: 80
         name: http
         protocol: HTTP
-      hosts:
-        - "*"
+      hosts: {{ .Values.ingressGateway.hosts }}
+      {{- if .Values.ingressGateway.credentialName -}}
+      tls:
+        mode: SIMPLE
+        credentialName: {{ .Values.ingressGateway.credentialName}}
+      {{- end }}
 
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -24,19 +29,11 @@ spec:
   hosts:
     - "*"
   gateways:
-    - default
+    - kiae
   http:
-    - name: dex
-      match:
-        - uri:
-            prefix: "/dex/"
-      route:
-        - destination:
-            host: kiae-dex
-            port:
-              number: 5556
     - route:
         - destination:
             host: kiae
             port:
               number: 8081
+{{- end }}

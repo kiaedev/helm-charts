@@ -11,8 +11,8 @@ data:
       port: 8024
 
     mongodb:
-      dsn: mongodb://root:admin@mongodb:27017
-      database: kiae
+      dsn: {{ .Values.config.mongodb.dsn }}
+      database: {{ .Values.config.mongodb.database }}
 
     oidc:
       issuer: {{ .Values.config.server.url }}/proxies/dex
@@ -20,7 +20,7 @@ data:
       clientSecret: {{ .Values.config.dex.clientSecret }}
 
     dex:
-      endpoint: http://kiae-dex:5556
+      endpoint: {{ .Values.config.dex.endpoint }}
 
     loki:
-      endpoint: http://kiae-loki:3100
+      endpoint: {{ .Values.config.loki.endpoint }}
