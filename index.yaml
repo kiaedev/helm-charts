@@ -31,4 +31,20 @@ entries:
     urls:
     - https://github.com/kiaedev/helm-charts/releases/download/kiae-0.1.0/kiae-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-20T04:21:18.441112356Z"
+  kiae-addon:
+  - annotations:
+      system.vela: '>=v1.5.8'
+    apiVersion: v2
+    appVersion: 0.1.0
+    created: "2022-11-20T09:07:57.041359903Z"
+    description: Kiae addon for KubeVela.
+    digest: f21f75e09d2b03d2140040325fb2f5e0ac4ae39c3673c9141fff89c9a37b3792
+    home: https://kiae.dev
+    keywords:
+    - Kiae
+    name: kiae-addon
+    type: library
+    urls:
+    - https://github.com/kiaedev/helm-charts/releases/download/kiae-addon-0.1.0/kiae-addon-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-11-20T09:07:57.041365603Z"
