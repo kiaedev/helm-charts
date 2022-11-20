@@ -44,12 +44,6 @@ tolerations: [ ]
 
 affinity: { }
 
-ingressGateway:
-  enabled: true
-  credentialName: ""
-  hosts:
-    - "kiae.example.com"
-
 # kiae config
 config:
   debug: false
@@ -87,27 +81,7 @@ istiod:
     istioNamespace: kiae-system
   meshConfig:
     accessLogFile: /dev/stdout
-istio-ingress:
-  global:
-    istioNamespace: kiae-system
-    hub: docker.io/istio
-    tag: 1.15.2
-  meshConfig:
-    accessLogFile: /dev/stdout
-  gateways:
-    istio-ingressgateway:
-      type: NodePort
-      ports:
-        - name: http2
-          nodePort: 30080
-          port: 80
-          protocol: TCP
-          targetPort: 8080
-        - name: https
-          nodePort: 30443
-          port: 443
-          protocol: TCP
-          targetPort: 8443
+
 # loki config
 loki-stack:
   promtail:

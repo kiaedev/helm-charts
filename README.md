@@ -1,5 +1,7 @@
 # helm-charts
 
+[![Release Charts](https://github.com/kiaedev/helm-charts/actions/workflows/release.yaml/badge.svg)](https://github.com/kiaedev/helm-charts/actions/workflows/release.yaml)
+
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.  Please refer to
@@ -12,10 +14,9 @@ helm repo add kiaedev https://kiaedev.github.io/helm-charts
 ```
 
 If you had already added this repo earlier, run `helm repo update` to retrieve
-the latest versions of the packages.  You can then run `helm search repo
-<alias>` to see the charts.
+the latest versions of the packages.  You can then run `helm search repo kiaedev` to see the charts.
 
-To install the <chart-name> chart:
+To install the kiae chart:
 
     helm install kiae kiaedev/kiae
 
