@@ -11,11 +11,14 @@ dependencies:
 - name: opentelemetry-collector
   repository: https://open-telemetry.github.io/opentelemetry-helm-charts
   version: 0.38.0
+- name: base
+  repository: https://istio-release.storage.googleapis.com/charts
+  version: 1.15.2
 - name: istiod
   repository: https://istio-release.storage.googleapis.com/charts
   version: 1.15.2
 - name: mongodb
   repository: https://charts.bitnami.com/bitnami
   version: 13.4.4
-digest: sha256:e802e9d23aab038803edbefebf3d0cd310fd50fc9249ccd054c6a9d785ec50c2
-generated: "2022-11-20T11:01:14.424307+08:00"
+digest: sha256:cae05be55e25ffd4e06805abf8d9c213a8134ca40396412b620bf80808864153
+generated: "2022-11-27T20:05:18.934748+08:00"
