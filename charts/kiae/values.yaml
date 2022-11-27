@@ -74,6 +74,8 @@ config:
 
 # istio config
 base:
+  base:
+    enableIstioConfigCRDs: false
   global:
     istioNamespace: kiae-system
 istiod:
