@@ -62,15 +62,16 @@ config:
     clientID: kiae-1hcHAtc2Vj
     clientSecret: ZXhhbXBsZS1hcHAtc2VjcmV0
     endpoint: http://kiae-dex:5556
-    connectors:
-      - type: github
-        id: github
-        name: GitHub
-        config:
-          clientID: $GITHUB_CLIENT_ID
-          clientSecret: $GITHUB_CLIENT_SECRET
-          redirectURI: http://kiae.localhost/dex/callback
-          org: kiaedev
+# connector example
+#    connectors:
+#      - type: github
+#        id: github
+#        name: GitHub
+#        config:
+#          clientID: $GITHUB_CLIENT_ID
+#          clientSecret: $GITHUB_CLIENT_SECRET
+#          redirectURI: http://kiae.localhost/dex/callback
+#          org: kiaedev
 
 # istio config
 base:
