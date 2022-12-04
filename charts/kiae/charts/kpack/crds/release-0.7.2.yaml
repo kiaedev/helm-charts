@@ -43,7 +43,7 @@ spec:
       clientConfig:
         service:
           name: kpack-webhook
-          namespace: kpack
+          namespace: kiae-system
           path: /convert
           port: 443
       conversionReviewVersions:
@@ -107,7 +107,7 @@ spec:
       clientConfig:
         service:
           name: kpack-webhook
-          namespace: kpack
+          namespace: kiae-system
           path: /convert
           port: 443
       conversionReviewVersions:
