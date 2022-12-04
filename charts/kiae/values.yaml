@@ -59,6 +59,9 @@ config:
     endpoint: http://kiae-loki:3100
 
   dex:
+    adminEmail: "admin@example.com"
+    # bcrypt hash of the string "password": $(echo password | htpasswd -BinC 10 admin | cut -d: -f2)
+    adminPasswd: "$2a$10$2b2cU8CPhOTaGrs1HRQuAueS7JTT5ZHsHSzYiFPm1leZck7Mc8T4W"
     clientID: kiae-1hcHAtc2Vj
     clientSecret: ZXhhbXBsZS1hcHAtc2VjcmV0
     endpoint: http://kiae-dex:5556

@@ -18,8 +18,8 @@ the latest versions of the packages.  You can then run `helm search repo kiaedev
 
 To install the kiae chart:
 
-    helm install kiae kiaedev/kiae
+    helm install -n kiae-system --create-namespace kiae kiaedev/kiae
 
 To uninstall the chart:
 
-    helm delete kiae
+    helm delete kiae -n kiae-system
