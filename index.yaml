@@ -2,6 +2,38 @@ apiVersion: v1
 entries:
   kiae:
   - apiVersion: v2
+    created: "2022-12-04T07:02:15.490156948Z"
+    dependencies:
+    - name: dex
+      repository: https://charts.dexidp.io
+      version: 0.12.1
+    - name: kpack
+      repository: ""
+      version: 0.1.0
+    - name: loki-stack
+      repository: https://grafana.github.io/helm-charts
+      version: 2.8.4
+    - name: opentelemetry-collector
+      repository: https://open-telemetry.github.io/opentelemetry-helm-charts
+      version: 0.38.0
+    - name: base
+      repository: https://istio-release.storage.googleapis.com/charts
+      version: 1.15.2
+    - name: istiod
+      repository: https://istio-release.storage.googleapis.com/charts
+      version: 1.15.2
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.4.4
+    description: A Helm chart for Kubernetes
+    digest: 277e4d71aa3a864bf2f1ba8f41a37197019647c3e4eaf9488153f815fbae3c19
+    name: kiae
+    type: application
+    urls:
+    - https://github.com/kiaedev/helm-charts/releases/download/kiae-0.1.3/kiae-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
     created: "2022-11-27T17:05:20.899090403Z"
     dependencies:
     - name: dex
@@ -95,4 +127,4 @@ entries:
     urls:
     - https://github.com/kiaedev/helm-charts/releases/download/kiae-0.1.0/kiae-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-27T17:05:20.899113503Z"
+generated: "2022-12-04T07:02:15.490180448Z"
