@@ -164,3 +164,5 @@ mongodb:
   enabled: true
   auth:
     rootPassword: password
+  volumePermissions:
+    enabled: true
